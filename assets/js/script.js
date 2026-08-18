@@ -55,6 +55,52 @@ overlay.addEventListener("click", testimonialsModalFunc);
 
 
 
+// project modal (window) variables
+const projectItems = document.querySelectorAll("[data-project-item]");
+const projectModalContainer = document.querySelector("[data-project-modal-container]");
+const projectModalCloseBtn = document.querySelector("[data-project-modal-close-btn]");
+const projectOverlay = document.querySelector("[data-project-overlay]");
+
+const projectModalImg = document.querySelector("[data-project-modal-img]");
+const projectModalCategory = document.querySelector("[data-project-modal-category]");
+const projectModalTitle = document.querySelector("[data-project-modal-title]");
+const projectModalDesc = document.querySelector("[data-project-modal-desc]");
+const projectModalLink = document.querySelector("[data-project-modal-link]");
+
+// project modal toggle function
+const projectModalFunc = function () {
+  projectModalContainer.classList.toggle("active");
+  projectOverlay.classList.toggle("active");
+}
+
+// add click event to all project items
+for (let i = 0; i < projectItems.length; i++) {
+
+  projectItems[i].addEventListener("click", function () {
+
+    const imgEl = this.querySelector("img");
+
+    projectModalImg.src = imgEl.src;
+    projectModalImg.alt = imgEl.alt;
+    projectModalCategory.innerHTML = this.dataset.projectCategory || "";
+    projectModalTitle.innerHTML = this.dataset.projectTitle || "";
+    projectModalDesc.innerHTML = `<p>${this.dataset.projectDesc || ""}</p>`;
+
+    const link = this.dataset.projectLink || "#";
+    projectModalLink.setAttribute("href", link);
+
+    projectModalFunc();
+
+  });
+
+}
+
+// close project modal
+projectModalCloseBtn.addEventListener("click", projectModalFunc);
+projectOverlay.addEventListener("click", projectModalFunc);
+
+
+
 // custom select variables
 const select = document.querySelector("[data-select]");
 const selectItems = document.querySelectorAll("[data-select-item]");
